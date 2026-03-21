@@ -74,58 +74,58 @@ node workers/index.js       # Background jobs
 
 ### Client (client/.env)
 
-| Variable               | Description                | Where to get                        |
-| ---------------------- | -------------------------- | ----------------------------------- |
-| `VITE_SUPABASE_URL`    | Supabase project URL       | Supabase dashboard                  |
-| `VITE_SUPABASE_ANON_KEY` | Supabase anonymous key   | Supabase dashboard > Settings > API |
-| `VITE_API_URL`         | API base URL (optional)    | Defaults to `/api` (Vite proxy)     |
+| Variable                 | Description             | Where to get                        |
+| ------------------------ | ----------------------- | ----------------------------------- |
+| `VITE_SUPABASE_URL`      | Supabase project URL    | Supabase dashboard                  |
+| `VITE_SUPABASE_ANON_KEY` | Supabase anonymous key  | Supabase dashboard > Settings > API |
+| `VITE_API_URL`           | API base URL (optional) | Defaults to `/api` (Vite proxy)     |
 
 ## API Endpoints
 
-| Method | Path                                  | Auth  | Description                 |
-| ------ | ------------------------------------- | ----- | --------------------------- |
-| GET    | `/api/health`                         | None  | Health check                |
-| POST   | `/api/auth/sync-user`                 | Auth  | Sync user after OAuth       |
-| GET    | `/api/users`                          | Auth  | List all users              |
-| GET    | `/api/users/:id`                      | Auth  | Get user by ID              |
-| PATCH  | `/api/users/:id`                      | Auth  | Update user profile         |
-| GET    | `/api/requests`                       | Auth  | List requests (filtered)    |
-| POST   | `/api/requests`                       | Auth  | Create request              |
-| GET    | `/api/requests/:id`                   | Auth  | Get request detail          |
-| PATCH  | `/api/requests/:id`                   | Auth  | Update request              |
-| DELETE | `/api/requests/:id`                   | Admin | Delete request              |
-| POST   | `/api/requests/:id/comments`          | Auth  | Add comment                 |
-| GET    | `/api/requests/:id/comments`          | Auth  | List comments               |
-| GET    | `/api/datasets`                       | Auth  | List datasets               |
-| POST   | `/api/datasets`                       | Auth  | Create dataset              |
-| GET    | `/api/datasets/:id`                   | Auth  | Get dataset detail          |
-| PATCH  | `/api/datasets/:id`                   | Auth  | Update dataset              |
-| POST   | `/api/datasets/:id/sources`           | Auth  | Add source                  |
-| POST   | `/api/datasets/:id/import-sheet`      | Auth  | Import from Google Sheet    |
-| GET    | `/api/contacts`                       | Auth  | List contacts               |
-| POST   | `/api/contacts/pdl/search-persons`    | Auth  | Search persons via PDL      |
-| POST   | `/api/contacts/pdl/enrich`            | Auth  | Enrich person via PDL       |
-| POST   | `/api/contacts/pdl/search-companies`  | Auth  | Search companies via PDL    |
-| POST   | `/api/contacts/verify-email`          | Auth  | Verify email via NeverBounce|
-| POST   | `/api/contacts/verify-batch`          | Auth  | Batch verify emails         |
-| GET    | `/api/permits`                        | Auth  | List permit leads           |
-| PATCH  | `/api/permits/:id`                    | Auth  | Update permit lead          |
-| POST   | `/api/research`                       | Auth  | Run AI research (SSE)       |
-| GET    | `/api/research/history`               | Auth  | Research history            |
-| GET    | `/api/notifications`                  | Auth  | User notifications          |
-| PATCH  | `/api/notifications/:id/read`         | Auth  | Mark notification read      |
-| PATCH  | `/api/notifications/read-all`         | Auth  | Mark all read               |
-| GET    | `/api/admin/users`                    | Admin | Admin user list             |
-| PATCH  | `/api/admin/users/:id/role`           | Admin | Change user role            |
-| GET    | `/api/admin/analytics`                | Admin | Analytics data              |
-| GET    | `/api/admin/scrape-logs`              | Admin | Scrape logs                 |
+| Method | Path                                 | Auth  | Description                  |
+| ------ | ------------------------------------ | ----- | ---------------------------- |
+| GET    | `/api/health`                        | None  | Health check                 |
+| POST   | `/api/auth/sync-user`                | Auth  | Sync user after OAuth        |
+| GET    | `/api/users`                         | Auth  | List all users               |
+| GET    | `/api/users/:id`                     | Auth  | Get user by ID               |
+| PATCH  | `/api/users/:id`                     | Auth  | Update user profile          |
+| GET    | `/api/requests`                      | Auth  | List requests (filtered)     |
+| POST   | `/api/requests`                      | Auth  | Create request               |
+| GET    | `/api/requests/:id`                  | Auth  | Get request detail           |
+| PATCH  | `/api/requests/:id`                  | Auth  | Update request               |
+| DELETE | `/api/requests/:id`                  | Admin | Delete request               |
+| POST   | `/api/requests/:id/comments`         | Auth  | Add comment                  |
+| GET    | `/api/requests/:id/comments`         | Auth  | List comments                |
+| GET    | `/api/datasets`                      | Auth  | List datasets                |
+| POST   | `/api/datasets`                      | Auth  | Create dataset               |
+| GET    | `/api/datasets/:id`                  | Auth  | Get dataset detail           |
+| PATCH  | `/api/datasets/:id`                  | Auth  | Update dataset               |
+| POST   | `/api/datasets/:id/sources`          | Auth  | Add source                   |
+| POST   | `/api/datasets/:id/import-sheet`     | Auth  | Import from Google Sheet     |
+| GET    | `/api/contacts`                      | Auth  | List contacts                |
+| POST   | `/api/contacts/pdl/search-persons`   | Auth  | Search persons via PDL       |
+| POST   | `/api/contacts/pdl/enrich`           | Auth  | Enrich person via PDL        |
+| POST   | `/api/contacts/pdl/search-companies` | Auth  | Search companies via PDL     |
+| POST   | `/api/contacts/verify-email`         | Auth  | Verify email via NeverBounce |
+| POST   | `/api/contacts/verify-batch`         | Auth  | Batch verify emails          |
+| GET    | `/api/permits`                       | Auth  | List permit leads            |
+| PATCH  | `/api/permits/:id`                   | Auth  | Update permit lead           |
+| POST   | `/api/research`                      | Auth  | Run AI research (SSE)        |
+| GET    | `/api/research/history`              | Auth  | Research history             |
+| GET    | `/api/notifications`                 | Auth  | User notifications           |
+| PATCH  | `/api/notifications/:id/read`        | Auth  | Mark notification read       |
+| PATCH  | `/api/notifications/read-all`        | Auth  | Mark all read                |
+| GET    | `/api/admin/users`                   | Admin | Admin user list              |
+| PATCH  | `/api/admin/users/:id/role`          | Admin | Change user role             |
+| GET    | `/api/admin/analytics`               | Admin | Analytics data               |
+| GET    | `/api/admin/scrape-logs`             | Admin | Scrape logs                  |
 
 ### Google OAuth (Server-side, non-API)
 
-| Method | Path                        | Description                              |
-| ------ | --------------------------- | ---------------------------------------- |
-| GET    | `/auth/google/sheets-auth`  | Generate Google OAuth URL for Sheets     |
-| GET    | `/auth/google/callback`     | OAuth callback — redirects to client     |
+| Method | Path                       | Description                          |
+| ------ | -------------------------- | ------------------------------------ |
+| GET    | `/auth/google/sheets-auth` | Generate Google OAuth URL for Sheets |
+| GET    | `/auth/google/callback`    | OAuth callback — redirects to client |
 
 ## Background Jobs
 
