@@ -15,6 +15,7 @@ import RequestDetailPage from './pages/RequestDetailPage';
 import DatasetsPage from './pages/DatasetsPage';
 import DatasetDetailPage from './pages/DatasetDetailPage';
 import PermitsPage from './pages/PermitsPage';
+import ContactsPage from './pages/ContactsPage';
 import ResearchPage from './pages/ResearchPage';
 import AdminPage from './pages/AdminPage';
 import AnalyticsPage from './pages/AnalyticsPage';
@@ -57,6 +58,7 @@ export default function App() {
               <Route path="datasets" element={<DatasetsPage />} />
               <Route path="datasets/:id" element={<DatasetDetailPage />} />
               <Route path="permits" element={<PermitsPage />} />
+              <Route path="contacts" element={<ContactsPage />} />
               <Route path="research" element={<ResearchPage />} />
               <Route path="admin" element={<ProtectedRoute adminOnly />}>
                 <Route index element={<AdminPage />} />

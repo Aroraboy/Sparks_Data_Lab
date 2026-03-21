@@ -12,6 +12,7 @@ const NAV_ITEMS = [
   { path: '/requests/new', label: 'New Request', icon: '➕' },
   { path: '/datasets', label: 'Datasets', icon: '🗃️' },
   { path: '/permits', label: 'Permits', icon: '🏗️' },
+  { path: '/contacts', label: 'Contacts', icon: '👥' },
   { path: '/research', label: 'AI Research', icon: '🔬' },
 ];
 

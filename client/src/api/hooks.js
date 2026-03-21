@@ -224,3 +224,83 @@ export function useResearchHistory() {
     queryFn: () => api.get('/research/history').then(r => r.data),
   });
 }
+
+// ─── CONTACTS ────────────────────────────────────────────
+
+export function useContacts(params = {}) {
+  const query = new URLSearchParams();
+  Object.entries(params).forEach(([k, v]) => {
+    if (v !== undefined && v !== null && v !== '') query.set(k, v);
+  });
+  return useQuery({
+    queryKey: ['contacts', params],
+    queryFn: () => api.get(`/contacts?${query}`).then(r => r.data),
+  });
+}
+
+export function usePdlSearchPersons() {
+  return useMutation({
+    mutationFn: (data) => api.post('/contacts/pdl/search-persons', data).then(r => r.data),
+  });
+}
+
+export function usePdlEnrich() {
+  return useMutation({
+    mutationFn: (data) => api.post('/contacts/pdl/enrich', data).then(r => r.data),
+  });
+}
+
+export function usePdlSearchCompanies() {
+  return useMutation({
+    mutationFn: (data) => api.post('/contacts/pdl/search-companies', data).then(r => r.data),
+  });
+}
+
+export function useVerifyEmail() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => api.post('/contacts/verify-email', data).then(r => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['contacts'] }),
+  });
+}
+
+export function useVerifyBatch() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => api.post('/contacts/verify-batch', data).then(r => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['contacts'] }),
+  });
+}
+
+// ─── GOOGLE SHEETS IMPORT ────────────────────────────────
+
+export function useImportSheet() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ datasetId, ...data }) =>
+      api.post(`/datasets/${datasetId}/import-sheet`, data).then(r => r.data),
+    onSuccess: (_, vars) => {
+      qc.invalidateQueries({ queryKey: ['dataset', vars.datasetId] });
+      qc.invalidateQueries({ queryKey: ['contacts'] });
+    },
+  });
+}
+
+// ─── USER PROFILE ────────────────────────────────────────
+
+export function useUpdateUserProfile() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...data }) => api.patch(`/users/${id}`, data).then(r => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['users'] }),
+  });
+}
+
+// ─── SCRAPE LOGS ─────────────────────────────────────────
+
+export function useScrapeLogs() {
+  return useQuery({
+    queryKey: ['scrape-logs'],
+    queryFn: () => api.get('/admin/scrape-logs').then(r => r.data),
+  });
+}

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import * as db from '../db/queries.js';
+import { fetchSheetData, extractSpreadsheetId } from '../services/googlesheets.service.js';
 
 const log = (msg) => console.log(`[${new Date().toISOString()}] ${msg}`);
 
@@ -138,10 +139,73 @@ export async function importSheet(req, res) {
       return res.status(404).json({ error: 'Dataset not found' });
     }
 
-    // Sheet import will be fully implemented in a later phase with Google Sheets API
-    return res.status(501).json({ error: 'Google Sheet import not yet implemented' });
+    const { google_token, sheet_url, range } = req.body;
+    if (!google_token) {
+      return res.status(400).json({ error: 'google_token is required. Authorize via /auth/google/sheets-auth first.' });
+    }
+
+    const url = sheet_url || existing.sheet_url;
+    if (!url) {
+      return res.status(400).json({ error: 'No sheet_url provided or associated with this dataset' });
+    }
+
+    const spreadsheetId = extractSpreadsheetId(url);
+    if (!spreadsheetId) {
+      return res.status(400).json({ error: 'Invalid Google Sheets URL' });
+    }
+
+    const sheetData = await fetchSheetData(google_token, spreadsheetId, range || 'Sheet1');
+
+    // Map rows to contacts and insert
+    const FIELD_MAP = {
+      full_name: ['full_name', 'name', 'contact_name', 'person'],
+      company: ['company', 'company_name', 'organization', 'org'],
+      designation: ['designation', 'title', 'job_title', 'position', 'role'],
+      email: ['email', 'email_address', 'e-mail'],
+      phone: ['phone', 'phone_number', 'mobile', 'telephone'],
+      linkedin_url: ['linkedin_url', 'linkedin', 'linkedin_profile'],
+      website: ['website', 'url', 'web'],
+      city: ['city', 'location_city'],
+      state: ['state', 'location_state', 'region'],
+      market: ['market'],
+      category: ['category', 'type', 'contact_type'],
+    };
+
+    function mapRow(row) {
+      const contact = { dataset_id: req.params.id, source: 'google_sheet' };
+      for (const [field, aliases] of Object.entries(FIELD_MAP)) {
+        for (const alias of aliases) {
+          if (row[alias] && row[alias].trim()) {
+            contact[field] = row[alias].trim();
+            break;
+          }
+        }
+      }
+      return contact;
+    }
+
+    const contacts = sheetData.rows.map(mapRow).filter((c) => c.full_name || c.email || c.company);
+
+    let inserted = 0;
+    for (const contact of contacts) {
+      const { error } = await db.insertContact(contact);
+      if (!error) inserted++;
+    }
+
+    // Update dataset record count
+    await db.updateDataset(req.params.id, { record_count: (existing.record_count || 0) + inserted });
+
+    log(`importSheet: imported ${inserted}/${contacts.length} contacts from ${spreadsheetId}`);
+    return res.json({
+      data: {
+        total_rows: sheetData.total,
+        mapped: contacts.length,
+        inserted,
+        headers: sheetData.headers,
+      },
+    });
   } catch (err) {
     log(`importSheet error: ${err.message}`);
-    return res.status(500).json({ error: 'Failed to import sheet' });
+    return res.status(500).json({ error: `Failed to import sheet: ${err.message}` });
   }
 }

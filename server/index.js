@@ -45,6 +45,39 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Google OAuth callback for Sheets import
+import { getAuthUrl, getTokensFromCode } from './src/services/googlesheets.service.js';
+
+app.get('/auth/google/sheets-auth', (req, res) => {
+  try {
+    const state = req.query.dataset_id || '';
+    const url = getAuthUrl(state);
+    return res.json({ url });
+  } catch (err) {
+    log(`sheets-auth error: ${err.message}`);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/auth/google/callback', async (req, res) => {
+  try {
+    const { code, state } = req.query;
+    if (!code) return res.status(400).send('Missing authorization code');
+
+    const tokens = await getTokensFromCode(code);
+    const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+    const redirectUrl = state
+      ? `${clientUrl}/datasets/${state}?google_token=${encodeURIComponent(tokens.access_token)}`
+      : `${clientUrl}?google_token=${encodeURIComponent(tokens.access_token)}`;
+
+    return res.redirect(redirectUrl);
+  } catch (err) {
+    log(`google callback error: ${err.message}`);
+    const clientUrl = process.env.CLIENT_URL || 'http://localhost:5173';
+    return res.redirect(`${clientUrl}?error=google_auth_failed`);
+  }
+});
+
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);

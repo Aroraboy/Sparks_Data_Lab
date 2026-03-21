@@ -268,7 +268,12 @@ export async function updateContactVerification(email, status) {
     .eq('email', email);
   if (error) { log(`updateContactVerification error: ${error.message}`); }
 }
-
+export async function insertContact(row) {
+  const { data, error } = await supabase
+    .from('contacts').insert(row).select().single();
+  if (error) { log(`insertContact error: ${error.message}`); return { error }; }
+  return { data };
+}
 // ─── PERMIT LEADS ────────────────────────────────────────
 
 export async function getPermitLeads(filters = {}) {
@@ -434,6 +439,17 @@ export async function getUserById(id) {
     log(`getUserById error: ${error.message}`);
     throw error;
   }
+  return data;
+}
+
+export async function updateUserProfile(id, updates) {
+  const { data, error } = await supabase
+    .from('users')
+    .update({ ...updates, updated_at: new Date().toISOString() })
+    .eq('id', id)
+    .select()
+    .single();
+  if (error) { log(`updateUserProfile error: ${error.message}`); throw error; }
   return data;
 }
 
