@@ -476,3 +476,15 @@ export async function getResearchSessionById(id) {
   if (error) { log(`getResearchSessionById error: ${error.message}`); throw error; }
   return data;
 }
+
+// ─── SCRAPE LOGS ─────────────────────────────────────────
+
+export async function getScrapeLogs(limit = 50) {
+  const { data, error } = await supabase
+    .from('scrape_logs')
+    .select('*')
+    .order('run_at', { ascending: false })
+    .limit(limit);
+  if (error) { log(`getScrapeLogs error: ${error.message}`); throw error; }
+  return data;
+}

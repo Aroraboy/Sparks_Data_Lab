@@ -1,1 +1,1 @@
-// Queue definitions will be created in Phase 7
+// Queue definitions — see index.js in this directory

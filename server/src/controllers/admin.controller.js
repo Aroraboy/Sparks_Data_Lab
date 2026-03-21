@@ -67,3 +67,13 @@ export async function getAnalytics(req, res) {
     return res.status(500).json({ error: 'Failed to fetch analytics' });
   }
 }
+
+export async function getScrapeLogs(req, res) {
+  try {
+    const logs = await db.getScrapeLogs();
+    return res.json({ data: logs });
+  } catch (err) {
+    log(`getScrapeLogs error: ${err.message}`);
+    return res.status(500).json({ error: 'Failed to fetch scrape logs' });
+  }
+}
