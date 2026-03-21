@@ -237,7 +237,13 @@ export default function ContactsPage() {
             </thead>
             <tbody className="divide-y divide-gray-100">
               {isLoading ? (
-                <tr><td colSpan={9} className="px-4 py-8 text-center text-gray-400">Loading...</td></tr>
+                Array.from({ length: 6 }).map((_, i) => (
+                  <tr key={i} className="border-b border-gray-100">
+                    {Array.from({ length: 9 }).map((_, j) => (
+                      <td key={j} className="px-4 py-3"><div className="h-4 bg-gray-200 rounded animate-pulse" /></td>
+                    ))}
+                  </tr>
+                ))
               ) : contacts.length === 0 ? (
                 <tr><td colSpan={9} className="px-4 py-8 text-center text-gray-400">No contacts found</td></tr>
               ) : (

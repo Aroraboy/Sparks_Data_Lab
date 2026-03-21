@@ -99,7 +99,14 @@ export default function ResearchPage() {
             <h3 className="font-semibold text-gray-900 text-sm">Research History</h3>
           </div>
           {historyLoading ? (
-            <div className="px-5 py-8 text-center text-gray-400 text-sm">Loading...</div>
+            <div className="px-5 py-4 space-y-3">
+              {Array.from({ length: 3 }).map((_, i) => (
+                <div key={i} className="animate-pulse">
+                  <div className="h-4 bg-gray-200 rounded w-3/4 mb-1" />
+                  <div className="h-3 bg-gray-100 rounded w-1/2" />
+                </div>
+              ))}
+            </div>
           ) : history.length === 0 ? (
             <div className="px-5 py-8 text-center text-gray-400 text-sm">No previous research sessions.</div>
           ) : (

@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import useAuthStore from '../stores/authStore';
 
 export default function ProtectedRoute({ children, adminOnly = false }) {
@@ -7,7 +7,7 @@ export default function ProtectedRoute({ children, adminOnly = false }) {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-pulse text-gray-500 text-lg">Loading...</div>
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-indigo-600" />
       </div>
     );
   }
@@ -27,5 +27,5 @@ export default function ProtectedRoute({ children, adminOnly = false }) {
     );
   }
 
-  return children;
+  return children || <Outlet />;
 }
