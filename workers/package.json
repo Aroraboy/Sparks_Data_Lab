@@ -1,0 +1,21 @@
+{
+  "name": "sparks-datalab-workers",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --watch index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "bull": "^4.16.0",
+    "ioredis": "^5.4.0",
+    "node-cron": "^3.0.3",
+    "@supabase/supabase-js": "^2.45.0",
+    "@anthropic-ai/sdk": "^0.39.0",
+    "playwright": "^1.47.0",
+    "axios": "^1.7.0",
+    "resend": "^4.0.0",
+    "dotenv": "^16.4.0"
+  }
+}

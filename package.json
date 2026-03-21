@@ -1,0 +1,15 @@
+{
+  "name": "sparks-datalab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SPARKS DataLab — Internal data intelligence platform for the SPARKS group of companies",
+  "scripts": {
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "dev:workers": "cd workers && npm run dev",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install && cd ../workers && npm install"
+  },
+  "keywords": [],
+  "author": "SPARKS Group",
+  "license": "UNLICENSED"
+}
