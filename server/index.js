@@ -4,6 +4,16 @@ import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 
+import authRoutes from './src/routes/auth.routes.js';
+import userRoutes from './src/routes/user.routes.js';
+import requestRoutes from './src/routes/request.routes.js';
+import datasetRoutes from './src/routes/dataset.routes.js';
+import contactRoutes from './src/routes/contact.routes.js';
+import permitRoutes from './src/routes/permit.routes.js';
+import researchRoutes from './src/routes/research.routes.js';
+import notificationRoutes from './src/routes/notification.routes.js';
+import adminRoutes from './src/routes/admin.routes.js';
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -35,16 +45,16 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Route stubs — will be mounted in Phase 2
-// app.use('/api/auth', authRoutes);
-// app.use('/api/users', userRoutes);
-// app.use('/api/requests', requestRoutes);
-// app.use('/api/datasets', datasetRoutes);
-// app.use('/api/contacts', contactRoutes);
-// app.use('/api/permits', permitRoutes);
-// app.use('/api/research', researchRoutes);
-// app.use('/api/notifications', notificationRoutes);
-// app.use('/api/admin', adminRoutes);
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/requests', requestRoutes);
+app.use('/api/datasets', datasetRoutes);
+app.use('/api/contacts', contactRoutes);
+app.use('/api/permits', permitRoutes);
+app.use('/api/research', researchRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 404 handler
 app.use((req, res) => {
