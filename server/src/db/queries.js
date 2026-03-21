@@ -255,6 +255,20 @@ export async function getContacts(filters = {}) {
   return { data, total: count, page, limit };
 }
 
+export async function updateContactVerification(email, status) {
+  const isValid = status === 'valid';
+  const { error } = await supabase
+    .from('contacts')
+    .update({
+      verification_status: status,
+      verified: isValid,
+      verified_at: isValid ? new Date().toISOString() : null,
+      updated_at: new Date().toISOString(),
+    })
+    .eq('email', email);
+  if (error) { log(`updateContactVerification error: ${error.message}`); }
+}
+
 // ─── PERMIT LEADS ────────────────────────────────────────
 
 export async function getPermitLeads(filters = {}) {

@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import useAuthStore from '../stores/authStore';
 import { supabase } from '../utils/supabase';
+import { useNotifications, useMarkNotificationRead, useMarkAllRead } from '../api/hooks';
 import toast from 'react-hot-toast';
+import { formatDistanceToNow } from 'date-fns';
 
 const NAV_ITEMS = [
   { path: '/', label: 'Dashboard', icon: '📊' },
@@ -23,6 +25,25 @@ export default function Layout() {
   const location = useLocation();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [notifOpen, setNotifOpen] = useState(false);
+  const notifRef = useRef(null);
+
+  const { data: notifications = [] } = useNotifications();
+  const markRead = useMarkNotificationRead();
+  const markAllRead = useMarkAllRead();
+
+  const unreadCount = notifications.filter((n) => !n.is_read).length;
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handler = (e) => {
+      if (notifRef.current && !notifRef.current.contains(e.target)) {
+        setNotifOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -117,10 +138,62 @@ export default function Layout() {
           </div>
 
           <div className="flex items-center gap-4">
-            {/* Notification bell placeholder */}
-            <button className="relative text-gray-500 hover:text-gray-700">
-              🔔
-            </button>
+            {/* Notification bell */}
+            <div className="relative" ref={notifRef}>
+              <button
+                onClick={() => setNotifOpen(!notifOpen)}
+                className="relative text-gray-500 hover:text-gray-700"
+              >
+                🔔
+                {unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[10px] rounded-full flex items-center justify-center">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
+                )}
+              </button>
+
+              {notifOpen && (
+                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                  <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+                    <span className="font-semibold text-sm text-gray-800">Notifications</span>
+                    {unreadCount > 0 && (
+                      <button
+                        onClick={() => markAllRead.mutate()}
+                        className="text-xs text-indigo-600 hover:text-indigo-800"
+                      >
+                        Mark all read
+                      </button>
+                    )}
+                  </div>
+                  <div className="max-h-80 overflow-y-auto">
+                    {notifications.length === 0 ? (
+                      <p className="text-sm text-gray-400 text-center py-6">No notifications</p>
+                    ) : (
+                      notifications.slice(0, 20).map((n) => (
+                        <div
+                          key={n.id}
+                          className={`px-4 py-3 border-b border-gray-50 cursor-pointer hover:bg-gray-50 transition-colors ${
+                            !n.is_read ? 'bg-indigo-50/50' : ''
+                          }`}
+                          onClick={() => {
+                            if (!n.is_read) markRead.mutate(n.id);
+                            setNotifOpen(false);
+                            if (n.link) navigate(n.link);
+                          }}
+                        >
+                          <p className={`text-sm ${!n.is_read ? 'font-medium text-gray-900' : 'text-gray-600'}`}>
+                            {n.message}
+                          </p>
+                          <p className="text-xs text-gray-400 mt-1">
+                            {formatDistanceToNow(new Date(n.created_at), { addSuffix: true })}
+                          </p>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* User info */}
             <div className="flex items-center gap-2">
