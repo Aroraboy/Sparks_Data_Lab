@@ -112,3 +112,98 @@ export function useMarkAllRead() {
     onSuccess: () => qc.invalidateQueries({ queryKey: ['notifications'] }),
   });
 }
+
+// ─── DATASETS ────────────────────────────────────────────
+
+export function useDatasets(params = {}) {
+  const query = new URLSearchParams();
+  Object.entries(params).forEach(([k, v]) => {
+    if (v !== undefined && v !== null && v !== '') query.set(k, v);
+  });
+  return useQuery({
+    queryKey: ['datasets', params],
+    queryFn: () => api.get(`/datasets?${query}`).then(r => r.data),
+  });
+}
+
+export function useDataset(id) {
+  return useQuery({
+    queryKey: ['dataset', id],
+    queryFn: () => api.get(`/datasets/${id}`).then(r => r.data),
+    enabled: !!id,
+  });
+}
+
+export function useCreateDataset() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => api.post('/datasets', data).then(r => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['datasets'] }),
+  });
+}
+
+export function useUpdateDataset() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...data }) => api.patch(`/datasets/${id}`, data).then(r => r.data),
+    onSuccess: (_, vars) => {
+      qc.invalidateQueries({ queryKey: ['datasets'] });
+      qc.invalidateQueries({ queryKey: ['dataset', vars.id] });
+    },
+  });
+}
+
+export function useAddSource() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ datasetId, ...data }) => api.post(`/datasets/${datasetId}/sources`, data).then(r => r.data),
+    onSuccess: (_, vars) => {
+      qc.invalidateQueries({ queryKey: ['dataset', vars.datasetId] });
+    },
+  });
+}
+
+// ─── PERMITS ─────────────────────────────────────────────
+
+export function usePermits(params = {}) {
+  const query = new URLSearchParams();
+  Object.entries(params).forEach(([k, v]) => {
+    if (v !== undefined && v !== null && v !== '') query.set(k, v);
+  });
+  return useQuery({
+    queryKey: ['permits', params],
+    queryFn: () => api.get(`/permits?${query}`).then(r => r.data),
+  });
+}
+
+export function useUpdatePermit() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...data }) => api.patch(`/permits/${id}`, data).then(r => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['permits'] }),
+  });
+}
+
+// ─── ADMIN ───────────────────────────────────────────────
+
+export function useAdminUsers() {
+  return useQuery({
+    queryKey: ['admin-users'],
+    queryFn: () => api.get('/admin/users').then(r => r.data),
+  });
+}
+
+export function useUpdateUserRole() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, role }) => api.patch(`/admin/users/${id}/role`, { role }).then(r => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['admin-users'] }),
+  });
+}
+
+export function useAnalytics() {
+  return useQuery({
+    queryKey: ['analytics'],
+    queryFn: () => api.get('/admin/analytics').then(r => r.data),
+  });
+}

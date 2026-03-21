@@ -1,16 +1,10 @@
 import { Router } from 'express';
 import { requireAuth } from '../middleware/auth.middleware.js';
+import { listPermits, patchPermit } from '../controllers/permit.controller.js';
 
 const router = Router();
 
-// GET /api/permits
-router.get('/', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
-
-// PATCH /api/permits/:id
-router.patch('/:id', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
+router.get('/', requireAuth, listPermits);
+router.patch('/:id', requireAuth, patchPermit);
 
 export default router;

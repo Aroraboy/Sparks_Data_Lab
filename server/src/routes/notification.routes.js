@@ -1,21 +1,11 @@
 import { Router } from 'express';
 import { requireAuth } from '../middleware/auth.middleware.js';
+import { listNotifications, markRead, markAllRead } from '../controllers/notification.controller.js';
 
 const router = Router();
 
-// GET /api/notifications
-router.get('/', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
-
-// PATCH /api/notifications/:id/read
-router.patch('/:id/read', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
-
-// PATCH /api/notifications/read-all
-router.patch('/read-all', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
+router.get('/', requireAuth, listNotifications);
+router.patch('/read-all', requireAuth, markAllRead);
+router.patch('/:id/read', requireAuth, markRead);
 
 export default router;

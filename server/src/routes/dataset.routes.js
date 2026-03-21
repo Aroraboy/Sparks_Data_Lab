@@ -1,36 +1,14 @@
 import { Router } from 'express';
 import { requireAuth } from '../middleware/auth.middleware.js';
+import { listDatasets, createDataset, getDataset, patchDataset, addSource, importSheet } from '../controllers/dataset.controller.js';
 
 const router = Router();
 
-// GET /api/datasets
-router.get('/', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
-
-// POST /api/datasets
-router.post('/', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
-
-// GET /api/datasets/:id
-router.get('/:id', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
-
-// PATCH /api/datasets/:id
-router.patch('/:id', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
-
-// POST /api/datasets/:id/sources
-router.post('/:id/sources', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
-
-// POST /api/datasets/:id/import-sheet
-router.post('/:id/import-sheet', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
+router.get('/', requireAuth, listDatasets);
+router.post('/', requireAuth, createDataset);
+router.get('/:id', requireAuth, getDataset);
+router.patch('/:id', requireAuth, patchDataset);
+router.post('/:id/sources', requireAuth, addSource);
+router.post('/:id/import-sheet', requireAuth, importSheet);
 
 export default router;
