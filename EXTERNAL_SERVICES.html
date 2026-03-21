@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPARKS DataLab — External Services &amp; Paid API Requirements</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: #1a1a2e; line-height: 1.6; background: #f8f9fa; }
+  .page { max-width: 900px; margin: 0 auto; background: #fff; padding: 48px 56px; }
+  @media print { body { background: #fff; } .page { padding: 0; max-width: 100%; } .no-print { display: none; } }
+  h1 { font-size: 26px; color: #4338ca; margin-bottom: 4px; }
+  .subtitle { font-size: 14px; color: #64748b; margin-bottom: 32px; }
+  .meta-row { display: flex; gap: 32px; font-size: 13px; color: #475569; margin-bottom: 6px; }
+  .meta-row strong { color: #1e293b; }
+  hr { border: none; border-top: 2px solid #e2e8f0; margin: 28px 0; }
+  h2 { font-size: 19px; color: #1e293b; margin-bottom: 14px; border-left: 4px solid #4338ca; padding-left: 12px; }
+  h3 { font-size: 15px; color: #334155; margin: 18px 0 8px; }
+  p, li { font-size: 14px; }
+  .summary-box { background: #f1f5f9; border-radius: 8px; padding: 16px 20px; margin-bottom: 24px; font-size: 14px; }
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 24px; font-size: 13px; }
+  th { background: #f1f5f9; text-align: left; padding: 10px 12px; font-weight: 600; color: #334155; border-bottom: 2px solid #e2e8f0; }
+  td { padding: 9px 12px; border-bottom: 1px solid #e2e8f0; color: #475569; }
+  tr:hover td { background: #fafbfc; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .core { background: #dcfce7; color: #166534; }
+  .optional { background: #fef3c7; color: #92400e; }
+  .free { background: #e0f2fe; color: #0369a1; }
+  .cost-highlight { font-size: 16px; font-weight: 700; color: #4338ca; }
+  .section { margin-bottom: 32px; page-break-inside: avoid; }
+  .service-card { border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; margin-bottom: 16px; page-break-inside: avoid; }
+  .service-card h3 { margin-top: 0; font-size: 16px; color: #1e293b; }
+  .service-card .cost { float: right; font-size: 14px; font-weight: 700; color: #4338ca; }
+  .detail-grid { display: grid; grid-template-columns: 140px 1fr; gap: 4px 16px; font-size: 13px; margin: 10px 0; }
+  .detail-grid dt { font-weight: 600; color: #334155; }
+  .detail-grid dd { color: #475569; }
+  .notes { background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 16px 20px; margin-top: 20px; }
+  .notes h3 { color: #92400e; margin-bottom: 8px; }
+  .notes ul { padding-left: 20px; }
+  .notes li { font-size: 13px; color: #78350f; margin-bottom: 4px; }
+  .print-btn { position: fixed; bottom: 24px; right: 24px; background: #4338ca; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; cursor: pointer; box-shadow: 0 4px 12px rgba(67,56,202,0.3); }
+  .print-btn:hover { background: #3730a3; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>SPARKS DataLab</h1>
+  <p class="subtitle">External Services &amp; Paid API Requirements</p>
+  <div class="meta-row"><strong>Application:</strong> SPARKS DataLab — Internal Data Intelligence Platform</div>
+  <div class="meta-row"><strong>Date:</strong> March 2026</div>
+
+  <hr>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="section">
+    <h2>Executive Summary</h2>
+    <div class="summary-box">
+      SPARKS DataLab requires <strong>10 external services</strong> to operate — including hosting, database, AI, and data enrichment providers.
+      The platform replaces manual WhatsApp-based data request workflows with a centralized data intelligence system
+      featuring AI-powered research, contact enrichment, email verification, permit scraping, and automated reporting.
+      <br><br>
+      <strong>Estimated monthly cost:</strong><br>
+      Core services only: <span class="cost-highlight">$95 – $260/mo</span><br>
+      All services enabled: <span class="cost-highlight">$155 – $665/mo</span>
+    </div>
+  </div>
+
+  <!-- COST SUMMARY TABLE -->
+  <div class="section">
+    <h2>Cost Summary</h2>
+    <table>
+      <thead>
+        <tr><th>Service</th><th>Purpose</th><th>Monthly Estimate</th><th>Priority</th><th>Free Tier?</th></tr>
+      </thead>
+      <tbody>
+        <tr style="background:#f0fdf4;"><td colspan="5" style="font-weight:600;color:#166534;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;">Hosting &amp; Infrastructure</td></tr>
+        <tr><td><strong>Vercel</strong></td><td>Frontend hosting (React)</td><td>$0 – $20</td><td><span class="badge core">Core</span></td><td>Yes (100 GB bandwidth)</td></tr>
+        <tr><td><strong>Railway</strong></td><td>Backend + Workers hosting</td><td>$5 – $20</td><td><span class="badge core">Core</span></td><td>Yes ($5 trial credit)</td></tr>
+        <tr><td><strong>Supabase</strong></td><td>Database + Google Auth</td><td>$25</td><td><span class="badge core">Core</span></td><td>Yes (limited)</td></tr>
+        <tr><td><strong>Redis (Railway)</strong></td><td>Job queue broker</td><td>$0 – $5</td><td><span class="badge core">Core</span></td><td>Included in Railway</td></tr>
+        <tr style="background:#f0fdf4;"><td colspan="5" style="font-weight:600;color:#166534;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;">AI &amp; Data APIs</td></tr>
+        <tr><td><strong>Anthropic</strong></td><td>AI Research Engine</td><td>$50 – $200</td><td><span class="badge core">Core</span></td><td>No</td></tr>
+        <tr><td><strong>People Data Labs</strong></td><td>Contact enrichment</td><td>$50 – $300</td><td><span class="badge optional">Optional</span></td><td>Yes (100 calls/mo)</td></tr>
+        <tr><td><strong>NeverBounce</strong></td><td>Email verification</td><td>$10 – $50</td><td><span class="badge optional">Optional</span></td><td>No</td></tr>
+        <tr style="background:#f0fdf4;"><td colspan="5" style="font-weight:600;color:#166534;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;">Communication &amp; Utilities</td></tr>
+        <tr><td><strong>Resend</strong></td><td>Transactional emails</td><td>$0</td><td><span class="badge core">Core</span></td><td>Yes (3,000/mo)</td></tr>
+        <tr><td><strong>Google Cloud</strong></td><td>Maps + Sheets + OAuth</td><td>$0 – $25</td><td><span class="badge optional">Optional</span></td><td>Yes ($200 credit/mo)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- SERVICE DETAILS -->
+  <div class="section">
+    <h2>Service Details</h2>
+
+    <!-- 1. Vercel -->
+    <div class="service-card">
+      <h3>1. Vercel <span class="badge core">Core</span> <span class="cost">$0 – $20/mo</span></h3>
+      <dl class="detail-grid">
+        <dt>Purpose</dt><dd>Frontend hosting — serves the React single-page application to users</dd>
+        <dt>Used For</dt><dd>Hosting the production build of the client app (<code>npm run build</code> → <code>dist/</code>), global CDN, HTTPS, preview deployments</dd>
+        <dt>Website</dt><dd>https://vercel.com</dd>
+        <dt>Pricing</dt><dd><strong>Hobby (Free):</strong> 100 GB bandwidth/month, 1 team member, custom domains. <strong>Pro:</strong> $20/month — unlimited bandwidth, team collaboration, analytics</dd>
+        <dt>Recommended</dt><dd>Hobby (Free) is sufficient for internal team use</dd>
+        <dt>Setup</dt><dd>Connect GitHub repo → Set root directory to <code>client</code> → Set build command <code>npm run build</code> → Add environment variables (<code>VITE_SUPABASE_URL</code>, <code>VITE_SUPABASE_ANON_KEY</code>)</dd>
+      </dl>
+    </div>
+
+    <!-- 2. Railway -->
+    <div class="service-card">
+      <h3>2. Railway <span class="badge core">Core</span> <span class="cost">$5 – $20/mo</span></h3>
+      <dl class="detail-grid">
+        <dt>Purpose</dt><dd>Backend hosting — runs the Express API server and background workers as separate services</dd>
+        <dt>Used For</dt><dd>Two services: (1) API server (<code>node server/index.js</code>) and (2) Workers process (<code>node workers/index.js</code>), plus Redis plugin for job queues</dd>
+        <dt>Website</dt><dd>https://railway.app</dd>
+        <dt>Pricing</dt><dd><strong>Trial:</strong> $5 one-time credit. <strong>Hobby:</strong> $5/month — 8 GB RAM, 8 vCPU, 100 GB bandwidth. <strong>Pro:</strong> $20/month — production scaling, priority support</dd>
+        <dt>Recommended</dt><dd>Hobby ($5/month) for initial deployment; upgrade to Pro for production traffic</dd>
+        <dt>Includes</dt><dd>Redis plugin (built-in, no separate account needed), environment variable management, deploy-on-push from GitHub</dd>
+        <dt>Setup</dt><dd>Create project → Add 3 services: (1) Express server (root dir <code>server</code>), (2) Workers (root dir <code>workers</code>), (3) Redis plugin → Add all .env variables → Deploy</dd>
+      </dl>
+    </div>
+
+    <!-- 3. Supabase -->
+    <div class="service-card">
+      <h3>3. Supabase <span class="badge core">Core</span> <span class="cost">$25/mo</span></h3>
+      <dl class="detail-grid">
+        <dt>Purpose</dt><dd>PostgreSQL database hosting, user authentication (Google OAuth), Row Level Security</dd>
+        <dt>Used For</dt><dd>All data storage — requests, datasets, contacts, permits, notifications, users; Google sign-in for team members</dd>
+        <dt>Website</dt><dd>https://supabase.com</dd>
+        <dt>Pricing</dt><dd><strong>Free tier:</strong> 500 MB database, 50K monthly active users. <strong>Pro plan:</strong> $25/month — 8 GB database, daily backups, point-in-time recovery</dd>
+        <dt>Recommended</dt><dd>Pro ($25/month) for production reliability and backup guarantees</dd>
+        <dt>Keys Required</dt><dd><code>SUPABASE_URL</code>, <code>SUPABASE_SERVICE_KEY</code>, <code>SUPABASE_ANON_KEY</code></dd>
+        <dt>Setup</dt><dd>Create project at supabase.com → Enable Google Auth provider → Run 15 SQL migrations → Copy keys from Settings &gt; API</dd>
+      </dl>
+    </div>
+
+    <!-- 2. Anthropic -->
+    <div class="service-card">
+      <h3>4. Anthropic <span class="badge core">Core</span> <span class="cost">$50 – $200/mo</span></h3>
+      <dl class="detail-grid">
+        <dt>Purpose</dt><dd>AI-powered research generation — the core intelligence feature of the platform</dd>
+        <dt>Used For</dt><dd>Processing data requests across 4 modes: General Research, Contact Prospecting, Permit Analysis, Market Intelligence</dd>
+        <dt>Website</dt><dd>https://console.anthropic.com</dd>
+        <dt>Models Used</dt><dd><strong>Claude Haiku 3.5</strong> for preprocessing queries; <strong>Claude Opus 4</strong> for full research responses</dd>
+        <dt>Pricing</dt><dd>Haiku: $1 input / $5 output per 1M tokens. Opus: $15 input / $75 output per 1M tokens</dd>
+        <dt>Cost Per Query</dt><dd>~$0.30 – $0.50 per research request (varies by response length)</dd>
+        <dt>Key Required</dt><dd><code>ANTHROPIC_API_KEY</code></dd>
+      </dl>
+    </div>
+
+    <!-- 5. People Data Labs -->
+    <div class="service-card">
+      <h3>5. People Data Labs <span class="badge optional">Optional</span> <span class="cost">$50 – $300/mo</span></h3>
+      <dl class="detail-grid">
+        <dt>Purpose</dt><dd>Enrich and search for business contacts — find emails, phone numbers, company info, LinkedIn profiles</dd>
+        <dt>Used For</dt><dd>Contact search by industry/location/role, individual contact enrichment, company search</dd>
+        <dt>Website</dt><dd>https://www.peopledatalabs.com</dd>
+        <dt>API Endpoints</dt><dd>Person Search, Person Enrich, Company Search</dd>
+        <dt>Pricing</dt><dd><strong>Free tier:</strong> 100 calls/month. <strong>Paid:</strong> $0.04 – $0.10 per enrichment (volume tiered)</dd>
+        <dt>Rate Limiting</dt><dd>Built-in: 200ms delay between batch calls, max 50 per batch</dd>
+        <dt>Keys Required</dt><dd><code>PDL_API_KEY</code>, <code>PDL_BASE_URL</code></dd>
+      </dl>
+    </div>
+
+    <!-- 6. NeverBounce -->
+    <div class="service-card">
+      <h3>6. NeverBounce <span class="badge optional">Optional</span> <span class="cost">$10 – $50/mo</span></h3>
+      <dl class="detail-grid">
+        <dt>Purpose</dt><dd>Verify email addresses are valid and deliverable before outreach</dd>
+        <dt>Used For</dt><dd>Single email verification, batch verification of selected contacts, background verification job</dd>
+        <dt>Website</dt><dd>https://www.neverbounce.com</dd>
+        <dt>Pricing</dt><dd>Pay-as-you-go: $0.008 per verification. Monthly plans from $10/month for 1,000 verifications</dd>
+        <dt>Rate Limiting</dt><dd>Built-in: 200ms delay between calls, max 50 per batch</dd>
+        <dt>Keys Required</dt><dd><code>NEVERBOUNCE_API_KEY</code>, <code>NEVERBOUNCE_BASE_URL</code></dd>
+      </dl>
+    </div>
+
+    <!-- 7. Google Cloud -->
+    <div class="service-card">
+      <h3>7. Google Cloud Platform <span class="badge optional">Optional</span> <span class="cost">$0 – $25/mo</span></h3>
+      <h3 style="border:none;padding:0;font-size:14px;margin-top:12px;">5a. Google Maps Geocoding API</h3>
+      <dl class="detail-grid">
+        <dt>Purpose</dt><dd>Convert permit addresses into GPS coordinates for mapping and distance calculations</dd>
+        <dt>Pricing</dt><dd>$5.00 per 1,000 requests (first $200/month free = ~40,000 free requests)</dd>
+        <dt>Rate Limiting</dt><dd>Built-in: 100ms delay between calls, max 50 per batch</dd>
+        <dt>Key Required</dt><dd><code>GOOGLE_MAPS_API_KEY</code></dd>
+      </dl>
+      <h3 style="border:none;padding:0;font-size:14px;margin-top:12px;">5b. Google Sheets API (Read-Only)</h3>
+      <dl class="detail-grid">
+        <dt>Purpose</dt><dd>Import contact data from Google Sheets into datasets</dd>
+        <dt>OAuth Scope</dt><dd><code>spreadsheets.readonly</code> (no write access)</dd>
+        <dt>Pricing</dt><dd>Free (included in Google Cloud free tier)</dd>
+        <dt>Keys Required</dt><dd><code>GOOGLE_CLIENT_ID</code>, <code>GOOGLE_CLIENT_SECRET</code></dd>
+      </dl>
+    </div>
+
+    <!-- 8. Resend -->
+    <div class="service-card">
+      <h3>8. Resend <span class="badge core">Core</span> <span class="cost">$0/mo</span></h3>
+      <dl class="detail-grid">
+        <dt>Purpose</dt><dd>Send automated transactional emails — assignment notifications, weekly digests, overdue alerts</dd>
+        <dt>Used For</dt><dd>New request assignment emails, weekly scrum digest (Monday 8 AM), overdue request alerts (daily 9 AM)</dd>
+        <dt>Website</dt><dd>https://resend.com</dd>
+        <dt>Pricing</dt><dd><strong>Free tier:</strong> 100 emails/day, 3,000 emails/month (sufficient for internal use)</dd>
+        <dt>Setup</dt><dd>Requires domain verification (DNS records) for custom sender address</dd>
+        <dt>Keys Required</dt><dd><code>RESEND_API_KEY</code>, <code>RESEND_FROM_EMAIL</code></dd>
+      </dl>
+    </div>
+
+    <!-- 9. Redis -->
+    <div class="service-card">
+      <h3>9. Redis <span class="badge free">Included</span> <span class="cost">$0/mo</span></h3>
+      <dl class="detail-grid">
+        <dt>Purpose</dt><dd>Message broker for background job queues — manages task scheduling and processing</dd>
+        <dt>Used For</dt><dd>6 job queues: permit scraping, weekly scrum, overdue checker, PDL enrichment, email verification, geocoding</dd>
+        <dt>Pricing</dt><dd><strong>Free locally</strong> for development. <strong>Production:</strong> included as Railway Redis plugin (no separate account)</dd>
+        <dt>Key Required</dt><dd><code>REDIS_URL</code> (auto-provisioned by Railway)</dd>
+      </dl>
+    </div>
+
+    <!-- 10. GitHub -->
+    <div class="service-card">
+      <h3>10. GitHub <span class="badge free">Free</span> <span class="cost">$0/mo</span></h3>
+      <dl class="detail-grid">
+        <dt>Purpose</dt><dd>Source code hosting, version control, CI/CD trigger for Vercel and Railway</dd>
+        <dt>Used For</dt><dd>Private repository hosting, deploy-on-push to Vercel (frontend) and Railway (backend + workers)</dd>
+        <dt>Website</dt><dd>https://github.com</dd>
+        <dt>Pricing</dt><dd><strong>Free tier:</strong> unlimited private repos, 3 collaborators. <strong>Team:</strong> $4/user/month for larger teams</dd>
+        <dt>Current Repo</dt><dd>https://github.com/Aroraboy/Sparks_Data_Lab</dd>
+      </dl>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- CREDENTIALS CHECKLIST -->
+  <div class="section">
+    <h2>Credentials Checklist</h2>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Credential</th><th>Source</th><th>Priority</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><code>SUPABASE_URL</code></td><td>supabase.com dashboard</td><td><span class="badge core">Must have</span></td></tr>
+        <tr><td>2</td><td><code>SUPABASE_SERVICE_KEY</code></td><td>Supabase &gt; Settings &gt; API</td><td><span class="badge core">Must have</span></td></tr>
+        <tr><td>3</td><td><code>SUPABASE_ANON_KEY</code></td><td>Supabase &gt; Settings &gt; API</td><td><span class="badge core">Must have</span></td></tr>
+        <tr><td>4</td><td><code>ANTHROPIC_API_KEY</code></td><td>console.anthropic.com</td><td><span class="badge core">Must have</span></td></tr>
+        <tr><td>5</td><td><code>RESEND_API_KEY</code></td><td>resend.com/api-keys</td><td><span class="badge core">Must have</span></td></tr>
+        <tr><td>6</td><td><code>PDL_API_KEY</code></td><td>dashboard.peopledatalabs.com</td><td><span class="badge optional">Nice to have</span></td></tr>
+        <tr><td>7</td><td><code>NEVERBOUNCE_API_KEY</code></td><td>app.neverbounce.com</td><td><span class="badge optional">Nice to have</span></td></tr>
+        <tr><td>8</td><td><code>GOOGLE_MAPS_API_KEY</code></td><td>console.cloud.google.com</td><td><span class="badge optional">Nice to have</span></td></tr>
+        <tr><td>9</td><td><code>GOOGLE_CLIENT_ID</code></td><td>console.cloud.google.com</td><td><span class="badge optional">Nice to have</span></td></tr>
+        <tr><td>10</td><td><code>GOOGLE_CLIENT_SECRET</code></td><td>console.cloud.google.com</td><td><span class="badge optional">Nice to have</span></td></tr>
+        <tr><td>11</td><td><code>REDIS_URL</code></td><td>Railway (auto-provisioned)</td><td><span class="badge core">Must have</span></td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="margin-top:20px;">Deployment Platform Accounts</h3>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Platform</th><th>What to Set Up</th><th>Priority</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Vercel</strong></td><td>Sign up → Connect GitHub repo → Set root to <code>client</code> → Add <code>VITE_SUPABASE_URL</code>, <code>VITE_SUPABASE_ANON_KEY</code></td><td><span class="badge core">Must have</span></td></tr>
+        <tr><td>2</td><td><strong>Railway</strong></td><td>Sign up → Create project → Add Express service, Workers service, Redis plugin → Add all server .env vars</td><td><span class="badge core">Must have</span></td></tr>
+        <tr><td>3</td><td><strong>GitHub</strong></td><td>Already set up — repo at github.com/Aroraboy/Sparks_Data_Lab</td><td><span class="badge core">Already done</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SECURITY NOTES -->
+  <div class="notes">
+    <h3>⚠ Security &amp; Architecture Notes</h3>
+    <ul>
+      <li><strong>No data leaves the platform</strong> — all API calls are server-side only; no API keys are exposed to the browser.</li>
+      <li><strong>Rate limiting is built in</strong> — all batch jobs include delays (100–200ms) to stay within API rate limits.</li>
+      <li><strong>Graceful degradation</strong> — features that depend on optional services will show errors but won't crash the app if keys are missing.</li>
+      <li><strong>All services use HTTPS</strong> — encrypted in transit.</li>
+      <li><strong>Supabase Google Auth</strong> — requires a separate Google OAuth client configured in the Supabase dashboard for team member sign-in.</li>
+    </ul>
+  </div>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">📄 Save as PDF</button>
+
+</body>
+</html>

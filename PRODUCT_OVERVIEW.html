@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPARKS DataLab — Product Overview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: #1a1a2e; line-height: 1.7; background: #f8f9fa; }
+  .page { max-width: 900px; margin: 0 auto; background: #fff; padding: 48px 56px; }
+  @media print { body { background: #fff; } .page { padding: 24px; max-width: 100%; } .no-print { display: none; } }
+  h1 { font-size: 28px; color: #4338ca; margin-bottom: 4px; }
+  .subtitle { font-size: 15px; color: #64748b; margin-bottom: 28px; }
+  .meta-row { display: flex; gap: 32px; font-size: 13px; color: #475569; margin-bottom: 6px; }
+  .meta-row strong { color: #1e293b; }
+  hr { border: none; border-top: 2px solid #e2e8f0; margin: 32px 0; }
+  h2 { font-size: 20px; color: #1e293b; margin-bottom: 16px; border-left: 4px solid #4338ca; padding-left: 12px; }
+  h3 { font-size: 16px; color: #334155; margin: 20px 0 10px; }
+  p { font-size: 14px; margin-bottom: 12px; color: #334155; }
+  .lead { font-size: 16px; color: #1e293b; line-height: 1.8; }
+  .highlight-box { background: linear-gradient(135deg, #eef2ff, #f0fdf4); border-radius: 12px; padding: 24px 28px; margin: 20px 0 28px; border: 1px solid #c7d2fe; }
+  .highlight-box p { margin-bottom: 0; }
+  .problem-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 20px 24px; margin: 16px 0; }
+  .problem-box h3 { color: #991b1b; margin-top: 0; }
+  .problem-box ul { padding-left: 20px; }
+  .problem-box li { font-size: 14px; color: #7f1d1d; margin-bottom: 6px; }
+  .solution-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 20px 24px; margin: 16px 0; }
+  .solution-box h3 { color: #166534; margin-top: 0; }
+  .solution-box ul { padding-left: 20px; }
+  .solution-box li { font-size: 14px; color: #14532d; margin-bottom: 6px; }
+  .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0 28px; }
+  @media (max-width: 600px) { .feature-grid { grid-template-columns: 1fr; } }
+  .feature-card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px; transition: box-shadow 0.2s; }
+  .feature-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+  .feature-icon { font-size: 28px; margin-bottom: 8px; }
+  .feature-card h4 { font-size: 15px; color: #1e293b; margin-bottom: 6px; }
+  .feature-card p { font-size: 13px; color: #64748b; margin-bottom: 0; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 13px; }
+  th { background: #f1f5f9; text-align: left; padding: 10px 12px; font-weight: 600; color: #334155; border-bottom: 2px solid #e2e8f0; }
+  td { padding: 9px 12px; border-bottom: 1px solid #e2e8f0; color: #475569; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .done { background: #dcfce7; color: #166534; }
+  .phase { background: #e0f2fe; color: #0369a1; }
+  .company-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  .company-tag { background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 6px; padding: 6px 14px; font-size: 13px; font-weight: 500; color: #334155; }
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 20px 0; }
+  .stat-card { text-align: center; background: #f8fafc; border-radius: 10px; padding: 16px 12px; border: 1px solid #e2e8f0; }
+  .stat-card .number { font-size: 28px; font-weight: 700; color: #4338ca; }
+  .stat-card .label { font-size: 12px; color: #64748b; margin-top: 4px; }
+  .timeline { position: relative; padding-left: 28px; margin: 16px 0 24px; }
+  .timeline::before { content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 2px; background: #c7d2fe; }
+  .timeline-item { position: relative; margin-bottom: 16px; }
+  .timeline-item::before { content: ''; position: absolute; left: -24px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: #4338ca; border: 2px solid #fff; box-shadow: 0 0 0 2px #c7d2fe; }
+  .timeline-item.completed::before { background: #16a34a; box-shadow: 0 0 0 2px #bbf7d0; }
+  .timeline-item h4 { font-size: 14px; color: #1e293b; margin-bottom: 2px; }
+  .timeline-item p { font-size: 13px; color: #64748b; margin-bottom: 0; }
+  .section { margin-bottom: 36px; page-break-inside: avoid; }
+  .footer-note { text-align: center; font-size: 12px; color: #94a3b8; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0; }
+  .print-btn { position: fixed; bottom: 24px; right: 24px; background: #4338ca; color: #fff; border: none; padding: 12px 24px; border-radius: 8px; font-size: 14px; cursor: pointer; box-shadow: 0 4px 12px rgba(67,56,202,0.3); }
+  .print-btn:hover { background: #3730a3; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>SPARKS DataLab</h1>
+  <p class="subtitle">Product Overview &amp; Platform Summary</p>
+  <div class="meta-row"><strong>Application:</strong> Internal Data Intelligence Platform</div>
+  <div class="meta-row"><strong>Date:</strong> March 2026</div>
+
+  <hr>
+
+  <!-- WHAT IS SPARKS DATALAB -->
+  <div class="section">
+    <h2>What Is SPARKS DataLab?</h2>
+    <p class="lead">
+      SPARKS DataLab is a <strong>private internal web application</strong> built exclusively for the SPARKS group of companies. 
+      It is a centralized data intelligence platform that replaces the current manual workflow — where team members send 
+      data requests via WhatsApp and chat messages — with an organized, AI-powered system that handles everything in one place.
+    </p>
+    <div class="highlight-box">
+      <p class="lead" style="margin:0;">
+        <strong>In simple terms:</strong> Team members log in, submit a data request (e.g., "Find me all commercial general contractors in DFW"), 
+        and the platform automatically runs AI research, enriches contacts with real emails and phone numbers, 
+        scrapes public permit data, verifies email deliverability, and stores everything in a searchable repository — 
+        all without leaving the app.
+      </p>
+    </div>
+  </div>
+
+  <!-- WHO IS IT FOR -->
+  <div class="section">
+    <h2>Who Is It For?</h2>
+    <p>The platform serves all five SPARKS group companies and their teams:</p>
+    <div class="company-list">
+      <span class="company-tag">🏗️ TX Sparks Construction</span>
+      <span class="company-tag">🔨 SuperConstruct</span>
+      <span class="company-tag">🏠 REF — Real Estate Forum</span>
+      <span class="company-tag">🏢 Leezaspace</span>
+      <span class="company-tag">⚙️ General Operations</span>
+    </div>
+    <p>
+      Each team member gets a personal login (Google sign-in with company email). 
+      Access is restricted to SPARKS team members only — no external users can access the platform.
+    </p>
+  </div>
+
+  <!-- THE PROBLEM WE'RE SOLVING -->
+  <div class="section">
+    <h2>The Problem We're Solving</h2>
+    <div class="problem-box">
+      <h3>❌ Current Workflow (Manual)</h3>
+      <ul>
+        <li>Team members request data through <strong>WhatsApp messages and group chats</strong> — unstructured, no tracking</li>
+        <li>Requests get <strong>lost, forgotten, or duplicated</strong> because there's no central system</li>
+        <li>No way to know the <strong>status</strong> of a request — is it being worked on? Is it done?</li>
+        <li>Research data is scattered across <strong>spreadsheets, emails, and chat threads</strong></li>
+        <li>Contact information is <strong>manually gathered</strong> — time-consuming, often incomplete or outdated</li>
+        <li>Permit data from city portals is <strong>checked manually</strong> — easy to miss new filings</li>
+        <li>No single <strong>repository or database</strong> to search past research</li>
+      </ul>
+    </div>
+    <div class="solution-box">
+      <h3>✅ With SPARKS DataLab</h3>
+      <ul>
+        <li>All data requests go through a <strong>structured form</strong> — titled, prioritized, assigned, tracked</li>
+        <li>Every request has a <strong>status trail</strong> — submitted → in progress → completed — visible to everyone</li>
+        <li>AI automatically <strong>researches queries</strong> using Claude (Anthropic) — returns structured, actionable intelligence</li>
+        <li>Contacts are <strong>enriched automatically</strong> with real emails, phone numbers, LinkedIn profiles, job titles</li>
+        <li>Email addresses are <strong>verified for deliverability</strong> before outreach</li>
+        <li>City permit portals are <strong>scraped automatically every morning</strong> — new commercial permits surface without manual checking</li>
+        <li>Everything is stored in a <strong>searchable central repository</strong> — datasets, contacts, permits, research history</li>
+        <li>Team gets <strong>automated email reports</strong> — weekly status digest, overdue request alerts</li>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- PLATFORM FEATURES -->
+  <div class="section">
+    <h2>Platform Features</h2>
+    <div class="feature-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">📋</div>
+        <h4>Request Portal</h4>
+        <p>Submit structured data requests with type, priority, company, market, and deadline. Track status from submission to completion. Add comments and collaborate.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔬</div>
+        <h4>AI Research Engine</h4>
+        <p>Ask a question in plain English and get AI-generated research reports. Four modes: General Research, Contact Prospecting, Permit Analysis, Market Intelligence.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h4>Contact Database</h4>
+        <p>Central repository of business contacts enriched with real data — emails, phones, LinkedIn, company info. Search by market, industry, or role. Import from Google Sheets.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏗️</div>
+        <h4>Permit Intelligence</h4>
+        <p>Automatically scrapes city permit portals (Frisco, Plano, more cities coming). Surfaces new commercial construction permits daily at 6 AM.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🗃️</div>
+        <h4>Dataset Repository</h4>
+        <p>Organize research outputs into named datasets. Track data sources. Link contacts to datasets. Import bulk data from Google Sheets.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">✉️</div>
+        <h4>Email Verification</h4>
+        <p>Verify any contact's email is real and deliverable before outreach. Single or batch verification. Results: valid, invalid, catchall, or unknown.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h4>Dashboard &amp; Analytics</h4>
+        <p>At-a-glance overview of all operations — request counts, status breakdown, recent activity. Admin analytics with charts for team performance.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔔</div>
+        <h4>Notifications &amp; Alerts</h4>
+        <p>In-app notification bell for real-time updates. Automated emails for new assignments, weekly status reports (Monday mornings), and overdue request alerts.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MARKETS COVERED -->
+  <div class="section">
+    <h2>Markets Covered</h2>
+    <p>The platform supports data operations across all current and expanding SPARKS markets:</p>
+    <div class="company-list">
+      <span class="company-tag">📍 DFW</span>
+      <span class="company-tag">📍 Austin</span>
+      <span class="company-tag">📍 Houston</span>
+      <span class="company-tag">📍 San Antonio</span>
+      <span class="company-tag">📍 California</span>
+      <span class="company-tag">📍 Phoenix</span>
+      <span class="company-tag">📍 Multi-state</span>
+      <span class="company-tag">📍 National</span>
+      <span class="company-tag">📍 Texas — All Markets</span>
+    </div>
+  </div>
+
+  <!-- REQUEST TYPES -->
+  <div class="section">
+    <h2>Types of Data Requests Supported</h2>
+    <table>
+      <thead>
+        <tr><th>Request Type</th><th>What It Covers</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Contact Database</strong></td><td>Find and build lists of business contacts — GCs, subcontractors, developers, brokers, architects</td></tr>
+        <tr><td><strong>Permit Intelligence</strong></td><td>New commercial building permits, permit holder info, project details from city portals</td></tr>
+        <tr><td><strong>Real Estate Comps</strong></td><td>Comparable sales data, property valuations, market pricing for specific areas</td></tr>
+        <tr><td><strong>Influencer &amp; Media Research</strong></td><td>Social media influencers, media contacts, PR opportunities in real estate / construction</td></tr>
+        <tr><td><strong>Subdivision &amp; Land Intelligence</strong></td><td>New subdivisions, land deals, zoning changes, development pipeline data</td></tr>
+        <tr><td><strong>Event &amp; REF Data</strong></td><td>Industry events, conference attendee lists, networking opportunity research</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- HOW IT WORKS -->
+  <div class="section">
+    <h2>How It Works — User Flow</h2>
+    <div class="timeline">
+      <div class="timeline-item completed">
+        <h4>1. Team member logs in</h4>
+        <p>Google sign-in with company email. Lands on the dashboard showing recent activity and stats.</p>
+      </div>
+      <div class="timeline-item completed">
+        <h4>2. Submits a data request</h4>
+        <p>Fills out a structured form — title, description, type, company, market, priority, deadline. System checks for duplicate requests.</p>
+      </div>
+      <div class="timeline-item completed">
+        <h4>3. Request gets assigned &amp; tracked</h4>
+        <p>Assigned team members get an email notification. Request appears on everyone's dashboard with real-time status.</p>
+      </div>
+      <div class="timeline-item completed">
+        <h4>4. AI research runs</h4>
+        <p>The research engine processes the query — extracts intent, runs AI analysis, returns a formatted report with actionable data.</p>
+      </div>
+      <div class="timeline-item completed">
+        <h4>5. Contacts get enriched &amp; verified</h4>
+        <p>Found contacts are enriched with real emails, phones, LinkedIn profiles. Emails are verified for deliverability.</p>
+      </div>
+      <div class="timeline-item completed">
+        <h4>6. Data stored in repository</h4>
+        <p>All research output, contacts, and permits go into searchable datasets. Available for future reference — nothing gets lost.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTOMATED BACKGROUND JOBS -->
+  <div class="section">
+    <h2>What Runs Automatically</h2>
+    <p>These tasks run in the background without anyone needing to do anything:</p>
+    <table>
+      <thead>
+        <tr><th>Automation</th><th>Schedule</th><th>What It Does</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Permit Scraper</strong></td><td>Every day at 6:00 AM</td><td>Scrapes Frisco and Plano city permit portals for new commercial permits and adds them to the database</td></tr>
+        <tr><td><strong>Weekly Status Report</strong></td><td>Every Monday at 8:00 AM</td><td>Emails all team members a digest of the week's activity — requests completed, in progress, new datasets</td></tr>
+        <tr><td><strong>Overdue Checker</strong></td><td>Every day at 9:00 AM</td><td>Flags requests past their deadline, sends alert emails to assignees and admins</td></tr>
+        <tr><td><strong>Contact Enrichment</strong></td><td>On demand</td><td>Batch-enriches contacts with real business data (emails, phones, company, LinkedIn)</td></tr>
+        <tr><td><strong>Email Verification</strong></td><td>On demand</td><td>Batch-verifies contact emails are deliverable before outreach</td></tr>
+        <tr><td><strong>Address Geocoding</strong></td><td>On demand</td><td>Converts permit addresses to GPS coordinates for mapping</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr>
+
+  <!-- BUILD STATUS -->
+  <div class="section">
+    <h2>Build Status</h2>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="number">9</div>
+        <div class="label">Build phases completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">13</div>
+        <div class="label">Application pages</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">35</div>
+        <div class="label">API endpoints</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">6</div>
+        <div class="label">Background automations</div>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Phase</th><th>What Was Built</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Phase 1</td><td>Database schema, 15 migrations, project structure</td><td><span class="badge done">✅ Complete</span></td></tr>
+        <tr><td>Phase 2</td><td>Server, authentication, API route structure</td><td><span class="badge done">✅ Complete</span></td></tr>
+        <tr><td>Phase 3</td><td>Request Portal — submit, track, comment on requests</td><td><span class="badge done">✅ Complete</span></td></tr>
+        <tr><td>Phase 4</td><td>Datasets, Permits, Dashboard, Admin panel, Analytics</td><td><span class="badge done">✅ Complete</span></td></tr>
+        <tr><td>Phase 5</td><td>AI Research Engine with Claude (4 research modes)</td><td><span class="badge done">✅ Complete</span></td></tr>
+        <tr><td>Phase 6</td><td>External integrations — PDL, NeverBounce, Google Maps, Resend</td><td><span class="badge done">✅ Complete</span></td></tr>
+        <tr><td>Phase 7</td><td>Background workers, job queues, permit scrapers (Frisco, Plano)</td><td><span class="badge done">✅ Complete</span></td></tr>
+        <tr><td>Phase 8</td><td>Google Sheets import, user profiles, Contacts page</td><td><span class="badge done">✅ Complete</span></td></tr>
+        <tr><td>Phase 9</td><td>Final polish — error handling, loading states, cleanup, documentation</td><td><span class="badge done">✅ Complete</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- WHAT'S NEEDED TO GO LIVE -->
+  <div class="section">
+    <h2>What's Needed to Go Live</h2>
+    <table>
+      <thead>
+        <tr><th>#</th><th>Item</th><th>Description</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Supabase project</strong></td><td>Create database and enable Google sign-in for team</td><td>Needs setup</td></tr>
+        <tr><td>2</td><td><strong>API keys</strong></td><td>Anthropic (AI), Resend (email), and optionally PDL, NeverBounce, Google Maps</td><td>Needs approval</td></tr>
+        <tr><td>3</td><td><strong>Vercel account</strong></td><td>Deploy the frontend (free tier works)</td><td>Needs setup</td></tr>
+        <tr><td>4</td><td><strong>Railway account</strong></td><td>Deploy backend server, workers, and Redis (~$5–$20/month)</td><td>Needs setup</td></tr>
+        <tr><td>5</td><td><strong>Domain (optional)</strong></td><td>Custom domain like datalab.sparksgroup.com</td><td>Optional</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top: 8px; font-size: 13px; color: #64748b;">
+      <strong>Estimated infrastructure cost:</strong> $75 – $260/month for core services. 
+      See the separate <em>External Services &amp; API Requirements</em> document for full pricing breakdown.
+    </p>
+  </div>
+
+  <!-- SECURITY -->
+  <div class="section">
+    <h2>Security &amp; Access Control</h2>
+    <table>
+      <thead>
+        <tr><th>Feature</th><th>Detail</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Authentication</strong></td><td>Google OAuth only — team members sign in with their Google account. No passwords stored.</td></tr>
+        <tr><td><strong>Access Control</strong></td><td>Two roles: Member (standard access) and Admin (user management, analytics, role changes).</td></tr>
+        <tr><td><strong>Private Platform</strong></td><td>No public-facing pages. Every page requires authentication. Deactivated users are blocked.</td></tr>
+        <tr><td><strong>API Security</strong></td><td>All API keys are server-side only — never exposed to browsers. HTTPS encryption for all data in transit.</td></tr>
+        <tr><td><strong>Rate Limiting</strong></td><td>200 requests per 15 minutes per IP to prevent abuse.</td></tr>
+        <tr><td><strong>Database Security</strong></td><td>Row Level Security (RLS) policies. Service-role key for backend only.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer-note">
+    SPARKS DataLab — Built for the SPARKS group of companies<br>
+    Source code: github.com/Aroraboy/Sparks_Data_Lab
+  </div>
+
+</div>
+
+<button class="print-btn no-print" onclick="window.print()">📄 Save as PDF</button>
+
+</body>
+</html>
