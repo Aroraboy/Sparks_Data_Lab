@@ -435,3 +435,30 @@ export async function getUsersByIds(ids) {
   }
   return data;
 }
+
+// ─── RESEARCH SESSIONS ──────────────────────────────────
+
+export async function insertResearchSession(row) {
+  const { data, error } = await supabase
+    .from('research_sessions').insert(row).select().single();
+  if (error) { log(`insertResearchSession error: ${error.message}`); throw error; }
+  return data;
+}
+
+export async function getResearchSessions(userId, limit = 20) {
+  const { data, error } = await supabase
+    .from('research_sessions')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(limit);
+  if (error) { log(`getResearchSessions error: ${error.message}`); throw error; }
+  return data;
+}
+
+export async function getResearchSessionById(id) {
+  const { data, error } = await supabase
+    .from('research_sessions').select('*').eq('id', id).single();
+  if (error) { log(`getResearchSessionById error: ${error.message}`); throw error; }
+  return data;
+}

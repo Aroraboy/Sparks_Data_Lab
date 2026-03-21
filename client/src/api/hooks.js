@@ -207,3 +207,20 @@ export function useAnalytics() {
     queryFn: () => api.get('/admin/analytics').then(r => r.data),
   });
 }
+
+// ─── RESEARCH ────────────────────────────────────────────
+
+export function useRunResearch() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (data) => api.post('/research', data).then(r => r.data),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ['research-history'] }),
+  });
+}
+
+export function useResearchHistory() {
+  return useQuery({
+    queryKey: ['research-history'],
+    queryFn: () => api.get('/research/history').then(r => r.data),
+  });
+}

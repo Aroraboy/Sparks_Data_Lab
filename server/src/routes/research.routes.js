@@ -1,16 +1,10 @@
 import { Router } from 'express';
 import { requireAuth } from '../middleware/auth.middleware.js';
+import { runResearch, getHistory } from '../controllers/research.controller.js';
 
 const router = Router();
 
-// POST /api/research
-router.post('/', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
-
-// GET /api/research/history
-router.get('/history', requireAuth, (req, res) => {
-  res.status(501).json({ error: 'Not implemented' });
-});
+router.post('/', requireAuth, runResearch);
+router.get('/history', requireAuth, getHistory);
 
 export default router;
